@@ -16,6 +16,25 @@ class Student:
         else:
             return 'Ошибка данных'
 
+    def __str__(self):
+        return f"""Имя: {self.name}
+Фамилия: {self.surname}
+Средняя оценка за домашнее задание: {self._avarage_grades()}
+Курсы в роцессе изучения: {', '.join(self.courses_in_progress) if len(self.courses_in_progress) != 0 else "Отсутствуют"}
+Завершенные курсы: {', '.join(self.finished_courses) if len(self.finished_courses) != 0 else "Отсутствуют"}"""
+
+    def _avarage_grades(self):
+        if len(self.grades) != 0:
+            sum_grades = 0
+            cout_grades = 0
+            for list_grades in self.grades.value():
+                for grade in list_grades:
+                    sum_grades += grade
+                    cout_grades += 1
+            return sum_grades / cout_grades
+        else:
+            return 0
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -23,11 +42,29 @@ class Mentor:
         self.surname = surname
         self.courses_attached = []
 
+    def __str__(self):
+        return f"Имя: {self.name}\nФамилия: {self.surname}"
+
 
 class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
         self.grades = {}
+
+    def _avarage_grades(self):
+        if len(self.grades) != 0:
+            sum_grades = 0
+            cout_grades = 0
+            for list_grades in self.grades.value():
+                for grade in list_grades:
+                    sum_grades += grade
+                    cout_grades += 1
+            return sum_grades / cout_grades
+        else:
+            return 0
+
+    def __str__(self):
+        return f'{super().__str__()}\nСредняя оценка за лекции: {self._avarage_grades()}'
 
 
 class Reviewer(Mentor):
