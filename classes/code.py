@@ -35,6 +35,8 @@ class Student:
         else:
             return 0
 
+    def __gt__(self, other):
+        return self._avarage_grades() > other._avarage_grades()
 
 class Mentor:
     def __init__(self, name, surname):
@@ -55,7 +57,7 @@ class Lecturer(Mentor):
         if len(self.grades) != 0:
             sum_grades = 0
             cout_grades = 0
-            for list_grades in self.grades.value():
+            for list_grades in self.grades.values():
                 for grade in list_grades:
                     sum_grades += grade
                     cout_grades += 1
@@ -66,6 +68,8 @@ class Lecturer(Mentor):
     def __str__(self):
         return f'{super().__str__()}\nСредняя оценка за лекции: {self._avarage_grades()}'
 
+    def __gt__(self, other):
+        return self._avarage_grades() > other._avarage_grades()
 
 class Reviewer(Mentor):
     def __init__(self, name, surname):
