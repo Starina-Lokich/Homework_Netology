@@ -16,7 +16,7 @@ with open('working_with_file\list_of_dishes.txt', encoding= 'utf-8') as file:
             continue
         else:
             cook_book[name_key].append(
-                {'ingredient_name': line.split()[0],
-                 'quantity': line.split()[2], 
-                 'measure': line.split()[4]}
+                {'ingredient_name': line.split(' | ')[0],
+                 'quantity': line.split(' | ')[1], 
+                 'measure': line.split(' | ')[2][:-1]}
             )
