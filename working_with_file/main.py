@@ -20,6 +20,3 @@ with open('working_with_file\list_of_dishes.txt', encoding= 'utf-8') as file:
                  'quantity': line.split()[2], 
                  'measure': line.split()[4]}
             )
-
-        print(line.strip(), couter)
-pprint(cook_book)
