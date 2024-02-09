@@ -34,8 +34,34 @@ def get_list_shop_by_dishes(dishes, person_count):
                         dict_shop_by_dishes[ingredient['ingredient_name']] = {
                             'measure': ingredient['measure'], 'quantity': int(ingredient['quantity']) * person_count
                             }
-                        # print(dict_shop_by_dishes)
     return dict_shop_by_dishes
+
+with open('working_with_file\Бородино1.txt', encoding='utf-8') as f:
+    all_lines = []
+    lines_1 = f.readlines()
+    lines_1 += ['Бородино1.txt\n']
+    all_lines += [lines_1]
+# pprint(lines_1)
+
+with open('working_with_file\Бородино2.txt', encoding='utf-8') as f:
+    lines_2 = f.readlines()
+    lines_2 += ['Бородино2.txt\n']
+    all_lines += [lines_2]
+# pprint(lines_2)
+
+with open('working_with_file\Бородино3.txt', encoding='utf-8') as f:
+    lines_3 = f.readlines()
+    lines_3 += ['Бородино3.txt\n']
+    all_lines += [lines_3]
+# pprint(lines_3)
+
+with open('working_with_file\Test_document.txt', 'w', encoding='utf-8') as f:
+
+    for lines in sorted(all_lines, key=len):
+        f.write(''.join(lines[-1]))
+        f.write(str(len(lines) - 1) + '\n')
+        f.write(''.join(lines[:-1]))
+# pprint(all_lines)
 
 dishesss = ['Оладьи', 'Глазунья']
 pprint(get_list_shop_by_dishes(dishesss,2))
