@@ -44,3 +44,12 @@ CREATE TABLE IF NOT EXISTS Состав_сборника (
 	Сборник_id INTEGER REFERENCES Сборник(Id),
 	CONSTRAINT Т_С PRIMARY KEY (Трек_id, Сборник_id)
 );
+
+--25.03.2024 14:42
+ALTER TABLE Жанр ADD UNIQUE (Название);
+ALTER TABLE Жанр ALTER COLUMN Название SET NOT NULL;
+ALTER TABLE Исполнитель ALTER COLUMN Псевдоним SET NOT NULL;
+ALTER TABLE Трек ALTER COLUMN Название SET NOT NULL;
+ALTER TABLE Трек ALTER COLUMN Длительность SET NOT NULL;
+ALTER TABLE Исполнитель ADD UNIQUE (Псевдоним);
+ALTER TABLE Альбом ADD UNIQUE (Название);
