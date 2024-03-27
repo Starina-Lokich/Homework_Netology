@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS Исполнитель_Альбом (
 CREATE TABLE IF NOT EXISTS Трек (
 	Id SERIAL PRIMARY KEY,
 	Название VARCHAR(40),
-	Длительность VARCHAR(10),
+	Длительность INT2 NOT NULL,
 	Альбом_id INTEGER NOT NULL REFERENCES Альбом(id)
 );
 
