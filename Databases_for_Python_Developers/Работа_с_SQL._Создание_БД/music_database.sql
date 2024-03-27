@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS Жанр_Исполнитель (
 CREATE TABLE IF NOT EXISTS Альбом (
 	Id SERIAL PRIMARY KEY,
 	Название VARCHAR(60) NOT NULL,
+	Количество_Треков INT2 NOT NULL,
 	Год_выпуска date NOT NULL
 );
 
