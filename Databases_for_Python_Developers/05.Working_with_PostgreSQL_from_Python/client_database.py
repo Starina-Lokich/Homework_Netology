@@ -122,3 +122,16 @@ def delete_phone(conn, client_id, phones):
             print(f'Номер телефона "{number}" удален')
 
 
+def delete_client(conn, client_id):
+    '''
+    Метод, позволяющий удалить существующего клиента.
+    '''
+    with conn.cursor() as cur:
+        cur.execute('''
+                    DELETE FROM phones WHERE client_id=%s;
+                    DELETE FROM client WHERE id=%s;
+                    ''',(client_id, client_id))
+        conn.commit()
+    print('Данные о клиенте удалены')
+
+
