@@ -59,3 +59,17 @@ def add_new_client(conn, first_name, last_name, email, phones=[None]):
         print('Клиент в базу данных добавлен')
 
 
+def add_phones(conn, client_id, phones):
+    '''
+    Метод, позволяющий добавить телефон для существующего клиента.
+    '''
+    for phone in phones:
+        with conn.cursor() as cur:
+            cur.execute('''
+                        INSERT INTO phones(client_id, number)
+                        VALUES(%s, %s);
+                        ''', (client_id, phone))
+            conn.commit()
+    print('Номер добавлен')
+
+
