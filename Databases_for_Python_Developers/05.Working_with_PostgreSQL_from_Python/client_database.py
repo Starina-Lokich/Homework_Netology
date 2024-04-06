@@ -37,3 +37,25 @@ def creat_db_struct(conn):
         conn.commit()
         print('Структура БД создана')
 
+
+def add_new_client(conn, first_name, last_name, email, phones=[None]):
+    '''
+    Метод, позволяющий добавить нового клиента.
+    '''
+    with conn.cursor() as cur:
+        cur.execute("""
+                    INSERT INTO client (first_name, last_name, email)
+                    VALUES (%s, %s, %s);
+                    """, (first_name, last_name, email))
+        if phones is not None:
+            cur.execute('''
+                        SELECT id FROM client 
+                        WHERE first_name=%s AND last_name=%s AND email=%s;
+                        ''', (first_name, last_name, email))
+            client_id = cur.fetchone()[0]
+            print(client_id)
+            add_phones(conn, client_id, phones)
+        conn.commit()
+        print('Клиент в базу данных добавлен')
+
+
