@@ -135,3 +135,17 @@ def delete_client(conn, client_id):
     print('Данные о клиенте удалены')
 
 
+def find_client(conn, first_name=None, last_name=None, email=None, number=None):
+    '''
+    Метод, позволяющий найти клиента по его данным: имени, фамилии, email или телефону
+    '''
+    with conn.cursor() as cur:
+        cur.execute("""SELECT * FROM client c JOIN phones p ON c.id = p.client_id 
+            WHERE first_name=%s OR 
+            last_name=%s OR 
+            email=%s OR 
+            p.number=%s;
+            """, (first_name, last_name, email, number))
+        print(cur.fetchall())
+
+
