@@ -73,3 +73,38 @@ def add_phones(conn, client_id, phones):
     print('Номер добавлен')
 
 
+def change_client(conn, client_id, first_name=None, last_name=None, email=None, old_number=None, new_number=None):
+    '''
+    Метод, позволяющий изменить данные о клиенте
+    '''
+    with conn.cursor() as cur:
+        cur.execute('''
+                    SELECT * from client
+                    WHERE id = %s
+                    ''', (client_id,))
+        temp = cur.fetchone()
+        if first_name is None:
+            first_name = temp[1]
+        if last_name is None:
+            last_name = temp[2]
+        if email is None:
+            email = temp[3]
+        if old_number and new_number:
+            cur.execute('''
+                        UPDATE phones SET number = %s 
+                        WHERE number = %s
+                        ''', (new_number, old_number))
+            conn.commit()
+
+        cur.execute('''
+                    UPDATE client SET first_name = %s, last_name = %s, email =%s
+                    WHERE id = %s
+                    ''', (first_name, last_name, email, client_id))
+        cur.execute('''
+                    SELECT * from client
+                    WHERE id = %s
+                    ''', (client_id,))
+        conn.commit()
+        print('Данные о клиенте изменены')
+
+
