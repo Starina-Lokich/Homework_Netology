@@ -149,3 +149,14 @@ def find_client(conn, first_name=None, last_name=None, email=None, number=None):
         print(cur.fetchall())
 
 
+def fetchall_db(conn):
+    with conn.cursor() as cur:
+        cur.execute("""
+           SELECT * FROM client;
+           """)
+        print(cur.fetchall())
+    with conn.cursor() as cur:
+        cur.execute("""
+           SELECT * FROM phones;
+           """)
+        print(cur.fetchall())
