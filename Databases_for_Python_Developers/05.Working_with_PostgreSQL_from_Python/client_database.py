@@ -108,3 +108,17 @@ def change_client(conn, client_id, first_name=None, last_name=None, email=None, 
         print('Данные о клиенте изменены')
 
 
+def delete_phone(conn, client_id, phones):
+    '''
+    Метод, позволяющий удалить телефон(ы) для существующего клиента.
+    '''
+    for number in phones:
+        with conn.cursor() as cur:
+            cur.execute('''
+                        DELETE FROM phones
+                        WHERE number = %s and client_id = %s
+                        ''', (number, client_id))
+            conn.commit()
+            print(f'Номер телефона "{number}" удален')
+
+
