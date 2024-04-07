@@ -2,7 +2,7 @@ import client_database as cd
 import psycopg2
 
 
-with psycopg2.connect(database='netology_db', user='postgres', password='090499') as conn:
+with psycopg2.connect(database='name_db', user='name_user', password='password') as conn:
     cd.drop_db(conn)
     cd.creat_db_struct(conn)
     # Добавим 5 клиентов:
