@@ -73,9 +73,8 @@ session.add_all([sale_1, sale_2, sale_3,
 session.commit()
 
 
-publisher = input('Введите писателя, по которому хотите осуществить поиск: ')
-bap.books_by_publisher(session, publisher)
-
-
+if __name__ == '__main__':
+    publisher = input('Введите имя или ID писателя, по которому хотите осуществить поиск: ') #Просим клиента ввести имя или айди публициста и данные сохраняем в переменную
+    bap.books_by_publisher(session, publisher) #Вызываем функцию получения данных из базы, передавая в функцию данные, которые ввел пользователь строкой выше    
 
 session.close()
