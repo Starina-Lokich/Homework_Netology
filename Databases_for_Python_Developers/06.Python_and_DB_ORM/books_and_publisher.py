@@ -75,12 +75,15 @@ def books_by_publisher(session, publisher):
         .join(Publisher, Publisher.id == Book.id_publisher) \
         .join(Stock, Stock.id_book == Book.id) \
         .join(Shop, Shop.id == Stock.id_shop) \
-        .join(Sale, Sale.id_stock == Stock.id) \
-            .where(Publisher.name == publisher)
+        .join(Sale, Sale.id_stock == Stock.id)
+    if publisher.isdigit():
+        q = q.filter(Publisher.id == publisher)
+    if publisher.isdigit() == False:
+        q = q.filter(Publisher.name == publisher)
     if len(session.execute(q).all()) == 0:
         print('Автор не найден')
     for book in session.execute(q).all():
-        print(f'book: {book.title:<40}| shop: {book.name:<10}| price: {book.price:<6}| sale date: {book.date_sale}')
+        print(f'book: {book.title:<40}| shop: {book.name:<10}| price: {book.price:<8}| sale date: {book.date_sale.strftime('%d-%m-%Y')}')
     return
 
 
