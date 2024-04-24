@@ -78,3 +78,10 @@ def write_csv(filename: str, encoding: str, data_list: list) -> list:
 
 
 
+
+if __name__ == '__main__':
+    data_list = read_csv('phonebook_raw.csv', 'UTF-8')# Читаем файл CSV и записываем данные в список
+    data_list = correct_full_name(data_list) # Разбиваем ФИО на отдельные элементы списка
+    data_list = sorted_data_list(data_list) # Сортируеv и обединяеv фрагменты данных в одно целое. Убираеv дубли
+    data_list = correct_phone_number(data_list) # Приводим все телефоны в формат +7(999)999-99-99 или +7(999)999-99-99 доб.9999
+    write_csv('phonebook.csv', 'UTF-8', data_list) # Записываем полностью отформатированные список в CSV
