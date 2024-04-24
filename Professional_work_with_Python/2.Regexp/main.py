@@ -51,3 +51,18 @@ def sorted_data_list(data_list: list) -> list:
                     data_list.remove(contact_2)
     return data_list
         
+
+def correct_phone_number(data_list: list) -> list:
+    """
+    Приводит все телефоны в формат +7(999)999-99-99 или +7(999)999-99-99 доб.9999
+    """
+    new_contacts_list = []
+
+    pattern = re.compile(r'([А-Я]\w+)\,([А-Я]\w+)\,([А-Я]\w+)\,([А-Я]\w+)\,?(\D+)?\,\+?(\d{1})\s?\W?(\d{3})'
+                         r'\W*(\d{3})\W?(\d{2})\W?(\d{2})\W*([а-я.]+)?\W?(\d{4})?\)?\,(\S+)?')
+    
+    for contact in data_list:
+        result = pattern.sub(r'\1,\2,\3,\4,\5,+7(\7)\8-\9-\10 \11\12,\13', str(','.join(contact)))
+        new_contacts_list.append(result)
+    return new_contacts_list
+
