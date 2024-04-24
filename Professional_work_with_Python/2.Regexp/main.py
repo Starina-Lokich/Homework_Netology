@@ -66,3 +66,15 @@ def correct_phone_number(data_list: list) -> list:
         new_contacts_list.append(result)
     return new_contacts_list
 
+
+def write_csv(filename: str, encoding: str, data_list: list) -> list:
+    """
+    Записываем данные из списка в CSV
+    """
+
+    with open(filename, 'w', encoding=encoding, newline='') as f:
+        datawriter = csv.writer(f, delimiter='\n')
+        datawriter.writerows([data_list])
+
+
+
