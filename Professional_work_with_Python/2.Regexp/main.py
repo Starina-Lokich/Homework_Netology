@@ -33,3 +33,21 @@ def correct_full_name(data_list: list) -> list:
             contacts[0] = contacts[0].split()[0]
     return data_list
 
+
+def sorted_data_list(data_list: list) -> list:
+    """
+    Сортирует и обединяет фрагменты данных в одно целое. Убирает дубли
+    """
+
+    for contact_1 in data_list:
+        for contact_2 in data_list[1:]:
+            if contact_1[4] == '':
+                if contact_1[0] == contact_2[0] and contact_1[1] == contact_2[1] and contact_2[4] != '':
+                    contact_1[4] = contact_2[4]
+                    data_list.remove(contact_2)
+            if contact_1[6] == '':
+                if contact_1[0] == contact_2[0] and contact_1[1] == contact_2[1] and contact_2[6] != '':
+                    contact_1[6] = contact_2[6]
+                    data_list.remove(contact_2)
+    return data_list
+        
