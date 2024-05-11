@@ -16,7 +16,7 @@ def logger(old_function):
         result = old_function(*args, **kwargs) # возвращяемое значение
         arg_old_func = [*args] #позиционные аргументы
         f = {**kwargs} # именованные аргументы
-        loggers.info(f'{log_datatime} {func_name:<15} | {result:^20} | *args - {str(arg_old_func):<20} | **kwargs - {f}') 
+        loggers.info(f'{log_datatime} {func_name:<15} | {str(result):^20} | *args - {str(arg_old_func):<20} | **kwargs - {f}') 
         return result
     return new_function
 
