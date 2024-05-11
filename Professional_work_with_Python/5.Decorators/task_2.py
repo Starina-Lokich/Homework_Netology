@@ -10,7 +10,7 @@ def logger(path):
             result = old_function(*args, **kwargs)
             datetime_call = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             log = (f'{datetime_call} функция - {old_function.__name__:<15} '
-                   f' результат - {result:<20} *args - {str(args):<20} **kwargs - {kwargs}')
+                   f' результат - {str(result):<20} *args - {str(args):<20} **kwargs - {kwargs}')
             with open(path, 'a', encoding='UTF-8') as log_file:
                 log_file.write(log + '\n')
             return result
