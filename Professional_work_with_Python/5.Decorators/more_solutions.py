@@ -1,9 +1,11 @@
+import datetime
 import os
 import logging
+from logging.handlers import RotatingFileHandler
 from functools import wraps
-from datetime import datetime
 
-# __________ЗАДАНИЕ 2__________
+
+# Задание 2 logging
 loggers = logging.getLogger(__name__)
 
 
@@ -27,46 +29,134 @@ def logger(path):
 
     return __logger
 
+# Задание 1 
+def logger_v1(old_function):
+    path = 'main.log'
 
-def test_2():
-    paths = ('log_1.log', 'log_2.log', 'log_3.log')
+    @wraps(old_function)
+    def new_function(*args, **kwargs):
+        result = old_function(*args, **kwargs)
 
-    for path in paths:
-        if os.path.exists(path):
-            os.remove(path)
-        
-        @logger(path)
-        def hello_world():
-            return 'Hello World'
+        with open(path, 'a',  encoding='UTF-8') as log_file:
+            log_file.write(f'''
+            {datetime.datetime.now()}
+            Вызвана функция {old_function.__name__}
+            c аргументами {args} и {kwargs} 
+            Результат: {result}
+            ______________________''')
 
-        @logger(path)
-        def summator(a, b=0):
-            return a + b
+        return result
 
-        @logger(path)
-        def div(a, b):
-            return a / b
+    return new_function
 
-        assert 'Hello World' == hello_world(), "Функция возвращает 'Hello World'"
-        result = summator(2, 2)
-        assert isinstance(result, int), 'Должно вернуться целое число'
-        assert result == 4, '2 + 2 = 4'
-        result = div(6, 2)
-        assert result == 3, '6 / 2 = 3'
-        summator(4.3, b=2.2)
+# Задание 1 logging
+def logger_v2(old_function):
+    path = 'main.log'
+    __logger = logging.getLogger(path)
+    __logger.setLevel(logging.DEBUG)
+    handler = RotatingFileHandler(path, backupCount=10, maxBytes=1000000, encoding='UTF-8')
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    __logger.addHandler(handler)
+    
+    @wraps(old_function)
+    def new_function(*args, **kwargs):
+        result = old_function(*args, **kwargs)
+    
+        __logger.debug(
+            f'Вызвана функция {old_function.__name__} c аргументами {args} и {kwargs} Результат: {result}'
+        )
+    
+        return result
+    
+    return new_function
 
-    for path in paths:
+# Задание 2
+def logger_v3(path):
+    def _logger(old_function):
+        @wraps(old_function)
+        def new_function(args, *kwargs):
+            result = old_function(args, *kwargs)
 
-        assert os.path.exists(path), f'файл {path} должен существовать'
+            with open(path, 'a', encoding='UTF-8') as log_file:
+                log_file.write(f'''
+                {datetime.datetime.now()}
+                Вызвана функция {old_function.__name__}
+                c аргументами {args} и {kwargs} 
+                Результат: {result}
+                ______________________''')
 
-        with open(path) as log_file:
-            log_file_content = log_file.read()
+            return result
 
-        assert 'summator' in log_file_content, 'должно записаться имя функции'
+        return new_function
+    
+    return _logger
 
-        for item in (4.3, 2.2, 6.5):
-            assert str(item) in log_file_content, f'{item} должен быть записан в файл'
+# Задание 2 logging
+def logger_v4(path):
+    _logger = logging.getLogger(path)
+    _logger.setLevel(logging.DEBUG)
+    handler = RotatingFileHandler(path, backupCount=10, maxBytes=1000000, encoding='UTF-8')
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    _logger.addHandler(handler)
+
+    def _logger(old_function):
+        @wraps(old_function)
+        def new_function(*args, **kwargs):
+            result = old_function(*args, **kwargs)
+
+            _logger.debug(
+                f'Вызвана функция {old_function.__name__} c аргументами {args} и {kwargs} Результат: {result}'
+            )
+
+            return result
+
+        return new_function
+
+    return _logger
 
 
-if __name__ == '__main__':
-    test_2()
+# def test():
+#     paths = (
+#     'main.log', 'main.log',
+#     'log1.log', 'log2.log', 'log3.log',
+#     'log1.log', 'log2.log', 'log3.log')
+
+#     for path in paths:
+#         if os.path.exists(path):
+#             os.remove(path)
+#     loggers = (
+#         logger_v1, logger_v2,
+#         logger_v3('log_1.log'),  logger_v3('log_2.log'), logger_v3('log_3.log'),
+#         logger_v4('log_1.log'), logger_v4('log_2.log'), logger_v4('log_3.log')
+#     )
+
+#     for path, logger in zip(paths, loggers):
+#         @logger
+#         def summator(a, b=0):
+#             return a + b
+
+#         @logger
+#         def div(a, b):
+#             return a / b
+
+#         result = summator(2, 2)
+#         assert isinstance(result, int)
+#         assert result == 4, '2 + 2 = 4'
+#         result = div(6, 2)
+#         assert result == 3, '6 / 2 = 3'
+
+#         assert os.path.exists(path)
+
+#         summator(4.3, b=2.2)
+#         summator(a=0, b=0)
+
+#         with open(path) as log_file:
+#             log_file_content = log_file.read()
+
+#         assert 'summator' in log_file_content, 'должно записаться имя функции'
+#         for item in (4.3, 2.2, 6.5):
+#             assert str(item) in log_file_content, f'{item} должен быть записан в файл'
+# if __name__ == '__main__':
+#     test()
