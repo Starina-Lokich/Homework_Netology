@@ -7,7 +7,7 @@ def get_unique_names(list_people: list[list[staticmethod]]) -> str:
     Возвращает строку с именами преподователей
     """
     name_list = []
-    [name_list.append(name.split([0])) for name in sum(list_people, [])]
+    [name_list.append(name.split()[0]) for name in sum(list_people, [])]
     unique_names_sort = ', '.join(sorted(set(name_list)))
     return unique_names_sort
 
