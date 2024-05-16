@@ -28,4 +28,4 @@ def get_top_3_names(people_list: list[list[str]]) -> str:
     result = ''
     for name, count in name_rating[0:3]:
         result += f'{name}: {count} раз(а), '
-    return result
+    return result[:-2]
