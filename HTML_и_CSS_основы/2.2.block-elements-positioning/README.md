@@ -1,4 +1,4 @@
-# 1.4 Позиционирование блочных элементов
+# 2.2 Позиционирование блочных элементов
 
 Необходимо выполнить и отправить на проверку следующие задачи:
 
@@ -9,3 +9,9 @@
 Все задачи обязательны к выполнению. Присылать на проверку можно только когда готовы все три задачи.
 
 Работы должны соответствовать принятому стилю кода для [HTML](https://github.com/netology-code/codestyle/tree/master/html) и [CSS](https://github.com/netology-code/codestyle/tree/master/css).
+
+Мои решения:
+
+1. https://codepen.io/swqqfafd-the-sasster/pen/dyxXGzV
+2. https://codepen.io/swqqfafd-the-sasster/pen/RwXRrEY
+3. https://codepen.io/swqqfafd-the-sasster/pen/VwojjRm
