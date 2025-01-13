@@ -4,6 +4,8 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
+    this.timerLimit = 0; // Лимит времени для ввода слова
+    this.timer = null; // Идентификатор таймера
 
     this.reset();
 
@@ -25,6 +27,16 @@ class Game {
       При неправильном вводе символа - this.fail();
       DOM-элемент текущего символа находится в свойстве this.currentSymbol.
      */
+      document.addEventListener("keyup", (event) => {
+        const inputChair = event.key.toLowerCase();
+        const currentChar = this.currentSymbol.toLowerCase();
+    
+        if (inputChair === currentChar) {
+          this.success();
+        } else {
+          this.fail();
+        }
+      });
   }
 
   success() {
@@ -52,10 +64,36 @@ class Game {
     this.setNewWord();
   }
 
+  /**
+   * Устанавливает новое слово для игры и запускает таймер.
+   * Изменения, произведенные в рамках задания:
+   * - Установка лимита времени для ввода слова в зависимости от его длины.
+   * - Запуск таймера, который отсчитывает время до истечения лимита.
+   * - Использование свойства класса `timer` для управления таймером,
+   *   что позволяет останавливать предыдущий таймер перед запуском нового.
+   */
   setNewWord() {
     const word = this.getWord();
 
     this.renderWord(word);
+    // Устанавливаем лимит времени в зависимости от длины слова
+    this.timerLimit = word.length;
+    this.startTimer(); // Запускаем таймер
+  }
+
+  startTimer() {
+    if (this.timer) {
+      clearInterval(this.timer); // Очищаем предыдущий таймер
+    }
+
+    this.timer = setInterval(() => {
+      if (this.timeLimit > 0) {
+        this.timeLimit--; // Уменьшаем лимит времени
+      } else {
+        clearInterval(this.timer); // Останавливаем таймер
+        this.fail(); // Вызываем метод fail при истечении времени
+      }
+    }, 1000); // Интервал в 1 секунду
   }
 
   getWord() {
