@@ -29,7 +29,7 @@ class Game {
      */
       document.addEventListener("keyup", (event) => {
         const inputChair = event.key.toLowerCase();
-        const currentChar = this.currentSymbol.toLowerCase();
+        const currentChar = this.currentSymbol.textContent.toLowerCase();
     
         if (inputChair === currentChar) {
           this.success();
@@ -87,8 +87,9 @@ class Game {
     }
 
     this.timer = setInterval(() => {
-      if (this.timeLimit > 0) {
-        this.timeLimit--; // Уменьшаем лимит времени
+      console.log(this.currentSymbol.textContent);
+      if (this.timerLimit > 0) {
+        this.timerLimit--; // Уменьшаем лимит времени
       } else {
         clearInterval(this.timer); // Останавливаем таймер
         this.fail(); // Вызываем метод fail при истечении времени
