@@ -15,9 +15,13 @@
   position: fixed;
   display: none;
   background: black;
-  padding: 5px;
+  padding: 8px; /* Добавляем отступы */
   border-radius: 5px;
   color: #fff;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Тень для подсказки */
+  z-index: 1000; /* Убедимся, что подсказка поверх других элементов */
+  white-space: nowrap; /* Предотвращаем перенос текста */
 }
 
 .tooltip_active {
