@@ -336,6 +336,11 @@ console.log(ajs.info());
 1. Ссылка на репозиторий с вашим пакетом
 1. Ссылка на репозиторий проект с Node.js
 1. Ссылка на JSBin
+   
+### Выполненные задания
+1. https://github.com/Starina-Lokich/ajs
+2. https://github.com/Starina-Lokich/ajs_Node_js
+3. https://jsbin.com/fufutegana/edit?html,console,output
 
 ### Дополнительно
 
